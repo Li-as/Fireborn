@@ -94,6 +94,7 @@ MonoBehaviour:
   _icon: {fileID: 5778054095680073742}
   _label: {fileID: 5778054096833726240}
   _waterPower: {fileID: 5778054095544763074}
+  _dragAreaDistanceFromCamera: 50
 --- !u!1 &5778054095544763084
 GameObject:
   m_ObjectHideFlags: 0

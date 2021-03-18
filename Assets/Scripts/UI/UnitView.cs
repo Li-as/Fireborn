@@ -31,6 +31,7 @@ public class UnitView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         //mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
         //_unit.transform.position = mousePosition;
 
+        _unit.gameObject.SetActive(true);
         _unit.Rigidbody.isKinematic = true;
     }
 

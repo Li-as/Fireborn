@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Rigidbody), typeof(UnitMover))]
 public abstract class Unit : MonoBehaviour
 {
     [SerializeField] protected int WaterPower;
@@ -11,6 +11,7 @@ public abstract class Unit : MonoBehaviour
     [SerializeField] private Transform _startPoint;
 
     private Rigidbody _rigidbody;
+    private UnitMover _mover;
 
     public Sprite Sprite => _sprite;
     public string Name => _name;
@@ -20,15 +21,17 @@ public abstract class Unit : MonoBehaviour
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
+        _mover = GetComponent<UnitMover>();
     }
 
     public void ResetPosition()
     {
         transform.position = _startPoint.position;
+        transform.rotation = Quaternion.identity;
     }
 
     public void SetDestination(PlaceOnFire desiredPlace)
     {
-        Debug.Log($"Start moving to {desiredPlace.transform.name}");
+        _mover.SetDestination(desiredPlace);
     }
 }

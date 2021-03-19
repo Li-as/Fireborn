@@ -17,6 +17,7 @@ public abstract class Unit : MonoBehaviour
     public string Name => _name;
     public int WaterPowerLevel => WaterPower;
     public Rigidbody Rigidbody => _rigidbody;
+    public Transform StartPoint => _startPoint;
 
     private void Awake()
     {
@@ -24,10 +25,11 @@ public abstract class Unit : MonoBehaviour
         _mover = GetComponent<UnitMover>();
     }
 
-    public void ResetPosition()
+    public void Reset()
     {
         transform.position = _startPoint.position;
         transform.rotation = Quaternion.identity;
+        _mover.Reset();
     }
 
     public void SetDestination(PlaceOnFire desiredPlace)

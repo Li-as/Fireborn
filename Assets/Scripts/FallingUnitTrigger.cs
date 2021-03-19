@@ -23,7 +23,7 @@ public class FallingUnitTrigger : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         ParticleSystem spawnedEffect = Instantiate(_landingEffect, _fallingUnit.transform.position, Quaternion.identity);
-        _fallingUnit.ResetPosition();
+        _fallingUnit.Reset();
         //_fallingUnit.Rigidbody.useGravity = false;
         _fallingUnit.SetDestination(_placeUnderTrigger);
 

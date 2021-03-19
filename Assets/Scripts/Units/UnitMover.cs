@@ -5,7 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(Unit))]
 public abstract class UnitMover : MonoBehaviour
 {
-    [SerializeField] protected float Speed;
+    [SerializeField] private float _speed;
+    [SerializeField] private float _rotationSpeed;
 
     protected bool IsHaveDestination;
     protected PathPoint[] CurrentPath;
@@ -15,6 +16,9 @@ public abstract class UnitMover : MonoBehaviour
     protected float MaxDistanceFromTargetPosition;
 
     private Unit _unit;
+
+    public float Speed => _speed;
+    public float RotationSpeed => _rotationSpeed;
 
     private void Start()
     {
@@ -31,5 +35,14 @@ public abstract class UnitMover : MonoBehaviour
             TargetPosition = CurrentPath[TargetPositionIndex].transform.position;
             Debug.Log($"Start moving to {desiredPlace.transform.name}");
         }
+    }
+
+    public void Reset()
+    {
+        IsHaveDestination = false;
+        CurrentPath = null;
+        TargetPosition = _unit.StartPoint.position;
+        TargetPositionIndex = 0;
+        TargetRotation = Quaternion.identity;
     }
 }

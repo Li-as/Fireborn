@@ -18,7 +18,7 @@ public class GroundUnitMover : UnitMover
                 float maxDistanceDelta = Speed * Time.deltaTime;
                 transform.position = Vector3.MoveTowards(transform.position, target, maxDistanceDelta);
             }
-            else if (TargetPosition == CurrentPath[CurrentPath.Length - 1].position)
+            else if (TargetPosition == CurrentPath[CurrentPath.Length - 1].transform.position)
             {
                 IsHaveDestination = false;
                 TargetPositionIndex = 0;
@@ -28,15 +28,27 @@ public class GroundUnitMover : UnitMover
             {
                 if (TargetPositionIndex + 1 != CurrentPath.Length)
                 {
-                    TargetPositionIndex++;
-                    TargetPosition = CurrentPath[TargetPositionIndex].position;
-                    
-                    if (TargetRotation != CurrentPath[TargetPositionIndex].rotation)
+                    Vector3 target = CurrentPath[TargetPositionIndex + 1].transform.position - CurrentPath[TargetPositionIndex].transform.position;
+                    //Debug.Log($"Current target way: {target}");
+                    float newRotation = Mathf.Atan2(target.x, target.z) * Mathf.Rad2Deg;
+                    //Debug.Log($"New Y rotation: {newRotation} degrees");
+                    Quaternion newTargetRotation = Quaternion.Euler(new Vector3(0, newRotation, 0));
+                    if (TargetRotation != newTargetRotation)
                     {
-                        TargetRotation = CurrentPath[TargetPositionIndex].rotation;
-                        StartCoroutine(ChangeRotation(TargetRotation, _rotationTime));
-                        TargetRotation = Quaternion.identity;
-                    }
+                        //Debug.Log("Changed TargetRotation");
+                        TargetRotation = newTargetRotation;
+                        StartCoroutine(ChangeToTargetRotation(_rotationTime));
+                    }    
+
+                    TargetPositionIndex++;
+                    TargetPosition = CurrentPath[TargetPositionIndex].transform.position;
+                    
+                    //if (TargetRotation != CurrentPath[TargetPositionIndex].transform.rotation)
+                    //{
+                    //    TargetRotation = CurrentPath[TargetPositionIndex].transform.rotation;
+                    //    StartCoroutine(ChangeRotation(TargetRotation, _rotationTime));
+                    //    TargetRotation = Quaternion.identity;
+                    //}
                 }
             }
         }
@@ -55,16 +67,29 @@ public class GroundUnitMover : UnitMover
         return false;
     }
 
-    private IEnumerator ChangeRotation(Quaternion targetRotation, float rotationTime)
+    private IEnumerator ChangeToTargetRotation(float rotationTime)
     {
         float passedTime = 0;
         Quaternion startRotation = transform.rotation;
         while (passedTime < rotationTime)
         {
-            transform.rotation = Quaternion.Lerp(startRotation, targetRotation, passedTime / rotationTime);
+            transform.rotation = Quaternion.Lerp(startRotation, TargetRotation, passedTime / rotationTime);
             passedTime += Time.deltaTime;
             yield return null;
         }
-        transform.rotation = targetRotation;
+        transform.rotation = TargetRotation;
     }
+
+    //private IEnumerator ChangeRotation(Quaternion targetRotation, float rotationTime)
+    //{
+    //    float passedTime = 0;
+    //    Quaternion startRotation = transform.rotation;
+    //    while (passedTime < rotationTime)
+    //    {
+    //        transform.rotation = Quaternion.Lerp(startRotation, targetRotation, passedTime / rotationTime);
+    //        passedTime += Time.deltaTime;
+    //        yield return null;
+    //    }
+    //    transform.rotation = targetRotation;
+    //}
 }

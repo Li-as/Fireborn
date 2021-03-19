@@ -94,7 +94,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 20
   _maxDistanceFromTargetPosition: 0.1
-  _rotationTime: 1
+  _rotationTime: 0.5
 --- !u!1001 &3570826905982580442
 PrefabInstance:
   m_ObjectHideFlags: 0

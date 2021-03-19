@@ -5,16 +5,18 @@ using UnityEngine;
 public abstract class PlaceOnFire : MonoBehaviour
 {
     [SerializeField] private FireSource _fireSource;
-    [SerializeField] private Transform[] _firefightersPath;
-    [SerializeField] private Transform[] _fireEnginePath;
-    [SerializeField] private Transform[] _helicopterPath;
-    [SerializeField] private Transform[] _airplanePath;
+    [SerializeField] private Transform _firefightersPath;
+    [SerializeField] private Transform _fireEnginePath;
+    [SerializeField] private Transform _helicopterPath;
+    [SerializeField] private Transform _airplanePath;
 
-    public Transform[] TryGetPath(Unit unit)
+    public PathPoint[] TryGetPath(Unit unit)
     {
+        PathPoint[] pathPoints;
         if (unit is FireEngine)
         {
-            return _fireEnginePath;
+            pathPoints = _fireEnginePath.GetComponentsInChildren<PathPoint>();
+            return pathPoints;
         }
         else
         {

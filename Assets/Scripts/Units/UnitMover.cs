@@ -8,7 +8,7 @@ public abstract class UnitMover : MonoBehaviour
     [SerializeField] protected float Speed;
 
     protected bool IsHaveDestination;
-    protected Transform[] CurrentPath;
+    protected PathPoint[] CurrentPath;
     protected Vector3 TargetPosition;
     protected Quaternion TargetRotation;
     protected int TargetPositionIndex;
@@ -28,7 +28,7 @@ public abstract class UnitMover : MonoBehaviour
         {
             IsHaveDestination = true;
             TargetPositionIndex = 0;
-            TargetPosition = CurrentPath[TargetPositionIndex].position;
+            TargetPosition = CurrentPath[TargetPositionIndex].transform.position;
             Debug.Log($"Start moving to {desiredPlace.transform.name}");
         }
     }

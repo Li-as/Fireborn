@@ -21,6 +21,10 @@ public abstract class PlaceOnFire : MonoBehaviour
         {
             pathPoints = _helicopterPath.GetComponentsInChildren<PathPoint>();
         }
+        else if (unit is Airplane)
+        {
+            pathPoints = _airplanePath.GetComponentsInChildren<PathPoint>();
+        }
         else
         {
             return null;

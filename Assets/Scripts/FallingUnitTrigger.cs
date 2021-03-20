@@ -27,7 +27,7 @@ public class FallingUnitTrigger : MonoBehaviour
         //_fallingUnit.Rigidbody.useGravity = false;
         _fallingUnit.SetDestination(_placeUnderTrigger);
 
-        yield return new WaitForSeconds(delay);
-        Destroy(spawnedEffect);
+        yield return new WaitForSeconds(spawnedEffect.main.duration);
+        Destroy(spawnedEffect.gameObject);
     }
 }

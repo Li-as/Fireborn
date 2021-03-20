@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody), typeof(UnitMover))]
+[RequireComponent(typeof(Collider), typeof(Rigidbody), typeof(UnitMover))]
 public abstract class Unit : MonoBehaviour
 {
     [SerializeField] protected int WaterPower;
@@ -10,25 +10,31 @@ public abstract class Unit : MonoBehaviour
     [SerializeField] private string _name;
     [SerializeField] private Transform _startPoint;
 
+    private Collider _collider;
     private Rigidbody _rigidbody;
     private UnitMover _mover;
 
     public Sprite Sprite => _sprite;
     public string Name => _name;
     public int WaterPowerLevel => WaterPower;
+    public Collider Collider => _collider;
     public Rigidbody Rigidbody => _rigidbody;
     public Transform StartPoint => _startPoint;
 
     private void Awake()
     {
+        _collider = GetComponent<Collider>();
         _rigidbody = GetComponent<Rigidbody>();
         _mover = GetComponent<UnitMover>();
     }
 
-    public void Reset()
+    public virtual void Reset()
     {
         transform.position = _startPoint.position;
         transform.rotation = Quaternion.identity;
+        _rigidbody.velocity = Vector3.zero;
+        _rigidbody.angularVelocity = Vector3.zero;
+        _rigidbody.isKinematic = true;
         _mover.Reset();
     }
 

@@ -33,13 +33,13 @@ public class UnitView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         //_unit.transform.position = mousePosition;
 
         _unit.gameObject.SetActive(true);
+        _unit.Collider.enabled = false;
         _unit.Rigidbody.isKinematic = true;
+        _unit.Rigidbody.useGravity = true;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        //Debug.Log("OnDrag");
-
         //Vector3 mousePosition = Input.mousePosition;
         //mousePosition.z = _dragAreaDistanceFromCamera;
         //mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
@@ -64,8 +64,7 @@ public class UnitView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        //Debug.Log("Drag stopped");
-
+        _unit.Collider.enabled = true;
         _unit.Rigidbody.isKinematic = false;
     }
 }

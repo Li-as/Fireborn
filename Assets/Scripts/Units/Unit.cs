@@ -9,10 +9,14 @@ public abstract class Unit : MonoBehaviour
     [SerializeField] private Sprite _sprite;
     [SerializeField] private string _name;
     [SerializeField] private Transform _startPoint;
+    [SerializeField] private Transform _fireEffectSpawnPoint;
+    [SerializeField] private Transform _waterEffectSpawnPoint;
+    [SerializeField] private FireExtinguisher _extinguisher;
 
     private Collider _collider;
     private Rigidbody _rigidbody;
     private UnitMover _mover;
+    private UnitView _unitView;
 
     public Sprite Sprite => _sprite;
     public string Name => _name;
@@ -20,6 +24,9 @@ public abstract class Unit : MonoBehaviour
     public Collider Collider => _collider;
     public Rigidbody Rigidbody => _rigidbody;
     public Transform StartPoint => _startPoint;
+    public UnitView UnitView => _unitView;
+    public Transform FireEffectSpawnPoint => _fireEffectSpawnPoint;
+    public Transform WaterEffectSpawnPoint => _waterEffectSpawnPoint;
 
     private void Awake()
     {
@@ -41,5 +48,10 @@ public abstract class Unit : MonoBehaviour
     public void SetDestination(PlaceOnFire desiredPlace)
     {
         _mover.SetDestination(desiredPlace);
+    }
+
+    public void StartExtinguish(PlaceOnFire place)
+    {
+        _extinguisher.TryExtinguishPlace(this, place);
     }
 }

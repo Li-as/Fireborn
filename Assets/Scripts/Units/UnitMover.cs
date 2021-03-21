@@ -14,6 +14,7 @@ public abstract class UnitMover : MonoBehaviour
     protected Vector3 TargetPosition;
     protected Quaternion TargetRotation;
     protected int TargetPositionIndex;
+    protected PlaceOnFire PlaceToExtinguish;
 
     private Unit _unit;
 
@@ -45,8 +46,7 @@ public abstract class UnitMover : MonoBehaviour
             else if (TargetPosition == CurrentPath[CurrentPath.Length - 1].transform.position)
             {
                 IsHaveDestination = false;
-                TargetPositionIndex = 0;
-                CurrentPath = null;
+                _unit.StartExtinguish(PlaceToExtinguish);
             }
             else
             {
@@ -77,15 +77,16 @@ public abstract class UnitMover : MonoBehaviour
         return false;
     }
 
-    public void SetDestination(PlaceOnFire desiredPlace)
+    public void SetDestination(PlaceOnFire place)
     {
-        CurrentPath = desiredPlace.TryGetPath(_unit);
+        CurrentPath = place.TryGetPath(_unit);
         if (CurrentPath != null && CurrentPath.Length > 0)
         {
             IsHaveDestination = true;
             TargetPositionIndex = 0;
             TargetPosition = CurrentPath[TargetPositionIndex].transform.position;
-            Debug.Log($"Start moving to {desiredPlace.transform.name}");
+            PlaceToExtinguish = place;
+            Debug.Log($"Start moving to {place.transform.name}");
         }
     }
 
@@ -93,6 +94,7 @@ public abstract class UnitMover : MonoBehaviour
     {
         IsHaveDestination = false;
         CurrentPath = null;
+        PlaceToExtinguish = null;
         TargetPosition = _unit.StartPoint.position;
         TargetPositionIndex = 0;
         TargetRotation = Quaternion.identity;

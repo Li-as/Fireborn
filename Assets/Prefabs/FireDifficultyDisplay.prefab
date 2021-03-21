@@ -146,6 +146,7 @@ GameObject:
   - component: {fileID: 4398384322752845400}
   - component: {fileID: 4398384322752845401}
   - component: {fileID: 4398384322752845398}
+  - component: {fileID: 21341521261237042}
   m_Layer: 5
   m_Name: FireDifficultyDisplay
   m_TagString: Untagged
@@ -226,6 +227,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _text: {fileID: 4398384322549134802}
   _fireSource: {fileID: 0}
+  _fireExtinguishers: []
+  _failAnimationTrigger: WrongChoice
+--- !u!95 &21341521261237042
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4398384322752845396}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6e765dfe82e18a940bc917419659292b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4398384322926142168
 GameObject:
   m_ObjectHideFlags: 0

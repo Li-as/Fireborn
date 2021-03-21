@@ -10,6 +10,8 @@ public abstract class PlaceOnFire : MonoBehaviour
     [SerializeField] private Transform _helicopterPath;
     [SerializeField] private Transform _airplanePath;
 
+    public FireSource FireSource => _fireSource;
+
     public PathPoint[] TryGetPath(Unit unit)
     {
         PathPoint[] pathPoints;

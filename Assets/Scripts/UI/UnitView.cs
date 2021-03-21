@@ -66,5 +66,6 @@ public class UnitView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     {
         _unit.Collider.enabled = true;
         _unit.Rigidbody.isKinematic = false;
+        gameObject.SetActive(false);
     }
 }

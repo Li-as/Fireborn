@@ -10,6 +10,8 @@ public class FireDifficultyDisplay : MonoBehaviour
     [SerializeField] private FireSource _fireSource;
     [SerializeField] private FireExtinguisher[] _fireExtinguishers;
     [SerializeField] private string _failAnimationTrigger;
+    [SerializeField] private string _successAnimationTrigger;
+    [SerializeField] private ParticleSystem _successEffect;
 
     private Animator _animator;
 
@@ -50,7 +52,18 @@ public class FireDifficultyDisplay : MonoBehaviour
             if (isSuccessed == false)
                 _animator.SetTrigger(_failAnimationTrigger);
             else
+            {
                 _text.text = "0";
+                _animator.SetTrigger(_successAnimationTrigger);
+                //StartCoroutine(WaitForEndOfSuccess());
+            }
         }
+    }
+
+    private IEnumerator WaitForEndOfSuccess()
+    {
+        ParticleSystem successEffect = Instantiate(_successEffect, transform);
+        yield return new WaitForSeconds(successEffect.main.duration);
+        Destroy(successEffect.gameObject);
     }
 }

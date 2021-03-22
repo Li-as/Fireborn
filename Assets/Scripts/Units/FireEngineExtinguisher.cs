@@ -26,11 +26,13 @@ public class FireEngineExtinguisher : FireExtinguisher
         ParticleSystem fireOnUnitEffect = Instantiate(FireOnUnitEffect, unit.FireEffectSpawnPoint);
         base.TryExtinguishPlace(unit, place);
         yield return new WaitForSeconds(failDelay);
+
         Destroy(fireOnUnitEffect.gameObject);
         unit.gameObject.SetActive(false);
-        ParticleSystem hideEffect = Instantiate(UnitHideEffect, unit.transform.position, Quaternion.identity);
-        yield return new WaitForSeconds(hideEffect.main.duration);
-        Destroy(hideEffect.gameObject);
+        ParticleSystem deathEffect = Instantiate(UnitDeathEffect, unit.DeathEffectSpawnPoint.position, Quaternion.identity);
+        yield return new WaitForSeconds(deathEffect.main.duration);
+
+        Destroy(deathEffect.gameObject);
     }
 
     private IEnumerator ExtinguishSuccess(float successDelay, Unit unit, PlaceOnFire place)
@@ -44,6 +46,7 @@ public class FireEngineExtinguisher : FireExtinguisher
 
         /// Get all fire effects
         List<ParticleSystem> fireSourceEffects = place.FireSource.FireEffects;
+
         while (fireSourceEffects.Count > 0)
         {
             /// Pick random fire
@@ -56,20 +59,28 @@ public class FireEngineExtinguisher : FireExtinguisher
             waterEffect.Play();
             /// Delay for extinguish
             yield return new WaitForSeconds(ExtinguishFireEffectDelay);
+
             /// Destroy water and fire effects
+            ParticleSystem fireExtinguishEndEffect = Instantiate(FireExtinguishEndEffect, pickedEffect.transform.position, Quaternion.identity);
             fireSourceEffects.Remove(pickedEffect);
             Destroy(pickedEffect.gameObject);
             waterEffectMain.loop = false;
-            /// Pick another fire effect and repeat
+            if (fireSourceEffects.Count == 0)
+            {
+                /// Run UI animation
+                base.TryExtinguishPlace(unit, place);
+            }
+            yield return new WaitForSeconds(FireExtinguishEndEffect.main.duration);
+
+            Destroy(fireExtinguishEndEffect);
         }
 
-        /// Run UI animation
-        base.TryExtinguishPlace(unit, place);
         yield return new WaitForSeconds(successDelay);
         /// Spawn unit hide effect
         ParticleSystem hideEffect = Instantiate(UnitHideEffect, unit.transform.position, Quaternion.identity);
         unit.gameObject.SetActive(false);
         yield return new WaitForSeconds(hideEffect.main.duration);
+
         Destroy(hideEffect.gameObject);
         Destroy(waterEffect.gameObject);
     }

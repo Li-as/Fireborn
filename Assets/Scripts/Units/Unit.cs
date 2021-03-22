@@ -11,12 +11,15 @@ public abstract class Unit : MonoBehaviour
     [SerializeField] private Transform _startPoint;
     [SerializeField] private Transform _fireEffectSpawnPoint;
     [SerializeField] private Transform _waterEffectSpawnPoint;
+    [SerializeField] private Transform _deathEffectSpawnPoint;
     [SerializeField] private FireExtinguisher _extinguisher;
 
     private Collider _collider;
     private Rigidbody _rigidbody;
     private UnitMover _mover;
     private UnitView _unitView;
+    private PlaceOnFire _requiredPlace;
+    private bool _isInRequiredPlace;
 
     public Sprite Sprite => _sprite;
     public string Name => _name;
@@ -25,8 +28,10 @@ public abstract class Unit : MonoBehaviour
     public Rigidbody Rigidbody => _rigidbody;
     public Transform StartPoint => _startPoint;
     public UnitView UnitView => _unitView;
+    public bool IsInRequiredPlace => _isInRequiredPlace;
     public Transform FireEffectSpawnPoint => _fireEffectSpawnPoint;
     public Transform WaterEffectSpawnPoint => _waterEffectSpawnPoint;
+    public Transform DeathEffectSpawnPoint => _deathEffectSpawnPoint;
 
     private void Awake()
     {
@@ -43,15 +48,35 @@ public abstract class Unit : MonoBehaviour
         _rigidbody.angularVelocity = Vector3.zero;
         _rigidbody.isKinematic = true;
         _mover.Reset();
+        _requiredPlace = null;
     }
 
     public void SetDestination(PlaceOnFire desiredPlace)
     {
         _mover.SetDestination(desiredPlace);
+        _requiredPlace = desiredPlace;
     }
 
     public void StartExtinguish(PlaceOnFire place)
     {
         _extinguisher.TryExtinguishPlace(this, place);
+    }
+
+    public void EnterPlace(PlaceOnFire place)
+    {
+        if (_requiredPlace == place)
+        {
+            _isInRequiredPlace = true;
+            StartExtinguish(place);
+        }
+    }
+
+    public void ExitPlace(PlaceOnFire place)
+    {
+        if (_requiredPlace == place)
+        {
+            _isInRequiredPlace = false;
+            _requiredPlace = null;
+        }
     }
 }

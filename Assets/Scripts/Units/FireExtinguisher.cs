@@ -7,8 +7,10 @@ public abstract class FireExtinguisher : MonoBehaviour
 {
     [SerializeField] protected UnitsPanel UnitsPanel;
     [SerializeField] protected ParticleSystem FireOnUnitEffect;
+    [SerializeField] protected ParticleSystem UnitDeathEffect;
     [SerializeField] protected ParticleSystem UnitHideEffect;
     [SerializeField] protected ParticleSystem WaterEffect;
+    [SerializeField] protected ParticleSystem FireExtinguishEndEffect;
     [SerializeField] protected float FailDelay;
     [SerializeField] protected float SuccessDelay;
     [SerializeField] protected float ExtinguishFireEffectDelay;

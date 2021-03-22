@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &853147228504481245
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2827281346312537105}
+  m_Layer: 0
+  m_Name: DeathEffectSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2827281346312537105
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 853147228504481245}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3570826906227124330}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &925882245990720696
 GameObject:
   m_ObjectHideFlags: 0
@@ -4880,6 +4910,7 @@ Transform:
   - {fileID: 4772679560685764414}
   - {fileID: 2614812731496102346}
   - {fileID: 773306760913950237}
+  - {fileID: 2827281346312537105}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4930,6 +4961,7 @@ MonoBehaviour:
   _startPoint: {fileID: 0}
   _fireEffectSpawnPoint: {fileID: 2614812731496102346}
   _waterEffectSpawnPoint: {fileID: 773306760913950237}
+  _deathEffectSpawnPoint: {fileID: 2827281346312537105}
   _extinguisher: {fileID: 0}
 --- !u!114 &4637873376219332116
 MonoBehaviour:

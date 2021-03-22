@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.41189706, y: 0.2021988}
   m_AnchorMax: {x: 0.9616082, y: 0.8651221}
-  m_AnchoredPosition: {x: 1.5745, y: -2.5}
+  m_AnchoredPosition: {x: 1.574501, y: -2.500023}
   m_SizeDelta: {x: -3.149002, y: -5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4398384322549134805
@@ -228,7 +228,9 @@ MonoBehaviour:
   _text: {fileID: 4398384322549134802}
   _fireSource: {fileID: 0}
   _fireExtinguishers: []
-  _failAnimationTrigger: WrongChoice
+  _failAnimationTrigger: Fail
+  _successAnimationTrigger: Success
+  _successEffect: {fileID: 19803030, guid: 9bc048f8743eb9f449139e2b6e5c98ce, type: 3}
 --- !u!95 &21341521261237042
 Animator:
   serializedVersion: 3
@@ -282,7 +284,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.021841941, y: 0.11952179}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -1.8430176, y: 1.990509}
+  m_AnchoredPosition: {x: -1.8431396, y: 1.990509}
   m_SizeDelta: {x: -10.313601, y: -4.0214996}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4398384322926142173

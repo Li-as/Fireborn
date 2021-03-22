@@ -33,6 +33,8 @@ Transform:
   m_Children:
   - {fileID: 1941020674331467740}
   - {fileID: 2821011040239351770}
+  - {fileID: 3206824795263645739}
+  - {fileID: 2870540755690793462}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -82,6 +84,8 @@ MonoBehaviour:
   _name: Airplane
   _startPoint: {fileID: 0}
   _fireEffectSpawnPoint: {fileID: 2821011040239351770}
+  _waterEffectSpawnPoint: {fileID: 3206824795263645739}
+  _deathEffectSpawnPoint: {fileID: 2870540755690793462}
   _extinguisher: {fileID: 0}
 --- !u!114 &5446139586934246759
 MonoBehaviour:
@@ -95,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a4716188624bdd4ba6b26e33141c237, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 70
+  _speed: 40
   _rotationSpeed: 100
   MaxDistanceFromTargetPosition: 0.1
 --- !u!1 &1937496353337403608
@@ -966,4 +970,64 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1936691344898441197}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8132841765503468151
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3206824795263645739}
+  m_Layer: 0
+  m_Name: WaterEffectSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3206824795263645739
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8132841765503468151}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: -1.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1936691344898441197}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!1 &8832451875399743695
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2870540755690793462}
+  m_Layer: 0
+  m_Name: DeathEffectSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2870540755690793462
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8832451875399743695}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1936691344898441197}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

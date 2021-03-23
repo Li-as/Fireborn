@@ -14,13 +14,18 @@ public class UnitView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     [SerializeField] private int _dragAreaDistanceFromCamera;
 
     private Unit _unit;
+    private GameObject _unitIcon;
 
     public void Init(Unit unit)
     {
         _unit = unit;
-        _icon.sprite = unit.Sprite;
+        //_icon.sprite = unit.Sprite;
         _label.text = unit.Name;
         _waterPower.text = unit.WaterPowerLevel.ToString();
+        if (unit.Icon != null)
+        {
+            _unitIcon = Instantiate(unit.Icon, transform);
+        }
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -49,7 +54,7 @@ public class UnitView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         mousePosition.z = _dragAreaDistanceFromCamera;
         mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
         //Vector3 direction = new Vector3(0, -1, 1).normalized;
-        Vector3 direction = new Vector3(0, -1, 12f / 6f).normalized;
+        Vector3 direction = new Vector3(0, -1, 10f / 6f).normalized;
         Ray ray = new Ray(mousePosition, direction);
         if (Physics.Raycast(ray, out RaycastHit hitInfo, 1000))
         {

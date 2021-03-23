@@ -2,12 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Collider), typeof(Rigidbody), typeof(UnitMover))]
+[RequireComponent(typeof(Collider), typeof(Rigidbody))]
 public abstract class Unit : MonoBehaviour
 {
     [SerializeField] protected int WaterPower;
     [SerializeField] private Sprite _sprite;
     [SerializeField] private string _name;
+    [SerializeField] private GameObject _icon;
+    [SerializeField] private Animator _animator;
+    [SerializeField] private string _idleAnimationTrigger;
+    [SerializeField] private string _runningAnimationTrigger;
+    [SerializeField] private string _firefightingAnimationTrigger;
+    //[SerializeField] private string _dyingAnimationTrigger;
     [SerializeField] private Transform _startPoint;
     [SerializeField] private Transform _fireEffectSpawnPoint;
     [SerializeField] private Transform _waterEffectSpawnPoint;
@@ -22,10 +28,16 @@ public abstract class Unit : MonoBehaviour
     private bool _isInRequiredPlace;
 
     public Sprite Sprite => _sprite;
+    public GameObject Icon => _icon;
     public string Name => _name;
     public int WaterPowerLevel => WaterPower;
     public Collider Collider => _collider;
     public Rigidbody Rigidbody => _rigidbody;
+    public Animator Animator => _animator;
+    public string IdleAnimationTrigger => _idleAnimationTrigger;
+    public string RunningAnimationTrigger => _runningAnimationTrigger;
+    public string FirefightingAnimationTrigger => _firefightingAnimationTrigger;
+    //public string DyingAnimationTrigger => _dyingAnimationTrigger;
     public Transform StartPoint => _startPoint;
     public UnitView UnitView => _unitView;
     public bool IsInRequiredPlace => _isInRequiredPlace;

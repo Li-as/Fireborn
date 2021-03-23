@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Unit))]
 public abstract class UnitMover : MonoBehaviour
 {
     [SerializeField] private float _speed;
@@ -45,6 +44,11 @@ public abstract class UnitMover : MonoBehaviour
             }
             else if (TargetPosition == CurrentPath[CurrentPath.Length - 1].transform.position)
             {
+                if (_unit is Firefighter)
+                {
+                    _unit.Animator.SetTrigger(_unit.FirefightingAnimationTrigger);
+                }
+
                 IsHaveDestination = false;
                 _unit.StartExtinguish(PlaceToExtinguish);
             }
@@ -82,6 +86,11 @@ public abstract class UnitMover : MonoBehaviour
         CurrentPath = place.TryGetPath(_unit);
         if (CurrentPath != null && CurrentPath.Length > 0)
         {
+            if (_unit is Firefighter)
+            {
+                _unit.Animator.SetTrigger(_unit.RunningAnimationTrigger);
+            }
+
             IsHaveDestination = true;
             TargetPositionIndex = 0;
             TargetPosition = CurrentPath[TargetPositionIndex].transform.position;

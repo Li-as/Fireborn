@@ -72,7 +72,7 @@ public class FireEngineExtinguisher : FireExtinguisher
             }
             yield return new WaitForSeconds(FireExtinguishEndEffect.main.duration);
 
-            Destroy(fireExtinguishEndEffect);
+            Destroy(fireExtinguishEndEffect.gameObject);
         }
 
         yield return new WaitForSeconds(successDelay);

@@ -11,6 +11,9 @@ public class FireDifficultyDisplay : MonoBehaviour
     [SerializeField] private FireExtinguisher[] _fireExtinguishers;
     [SerializeField] private string _failAnimationTrigger;
     [SerializeField] private string _successAnimationTrigger;
+    [SerializeField] private string _replaceAnimationTrigger;
+    [SerializeField] private float _replaceDelay;
+    [SerializeField] private SuccessExtinguishDisplay _successDisplay;
     [SerializeField] private ParticleSystem _successEffect;
 
     private Animator _animator;
@@ -53,17 +56,21 @@ public class FireDifficultyDisplay : MonoBehaviour
                 _animator.SetTrigger(_failAnimationTrigger);
             else
             {
-                _text.text = "0";
-                _animator.SetTrigger(_successAnimationTrigger);
-                //StartCoroutine(WaitForEndOfSuccess());
+                StartCoroutine(WaitForEndOfSuccess());
             }
         }
     }
 
     private IEnumerator WaitForEndOfSuccess()
     {
-        ParticleSystem successEffect = Instantiate(_successEffect, transform);
+        _animator.SetTrigger(_replaceAnimationTrigger);
+        yield return new WaitForSeconds(_replaceDelay);
+        _successDisplay.gameObject.SetActive(true);
+        _successDisplay.Animator.SetTrigger(_successDisplay.ReplaceAnimationTrigger);
+        yield return new WaitForSeconds(_replaceDelay);
+        ParticleSystem successEffect = Instantiate(_successEffect, _successDisplay.transform);
         yield return new WaitForSeconds(successEffect.main.duration);
         Destroy(successEffect.gameObject);
+        gameObject.SetActive(false);
     }
 }

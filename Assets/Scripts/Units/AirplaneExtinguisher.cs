@@ -47,7 +47,7 @@ public class AirplaneExtinguisher : FireExtinguisher
             {
                 yield return new WaitForSeconds(ExtinguishFireEffectDelay);
                 fireExtinguishEndEffects.Add(Instantiate(FireExtinguishEndEffect, fireSourceEffects[0].transform.position, Quaternion.identity));
-                Destroy(fireSourceEffects[0]);
+                Destroy(fireSourceEffects[0].gameObject);
                 fireSourceEffects.RemoveAt(0);
             }
             else

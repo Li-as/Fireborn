@@ -6,26 +6,46 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Animator))]
 public class UnitView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     [SerializeField] private Image _icon;
     [SerializeField] private TMP_Text _label;
     [SerializeField] private TMP_Text _waterPower;
+    [SerializeField] private TMP_Text _unitsAmountDisplay;
     [SerializeField] private int _dragAreaDistanceFromCamera;
+    [SerializeField] private float _appearDisappearDelay;
+    [SerializeField] private string _disappearAnimationTrigger;
+    [SerializeField] private string _appearAnimationTrigger;
+    [SerializeField] private float _changeAmountDelay;
+    [SerializeField] private string _amountDisplayIncreaseAnimationTrigger;
+    [SerializeField] private string _amountDisplayDecreaseAnimationTrigger;
 
-    private Unit _unit;
+    private Animator _animator;
+    private List<Unit> _units = new List<Unit>();
     private GameObject _unitIcon;
+    private int _unitsAmount;
+
+    public TMP_Text Label => _label;
 
     public void Init(Unit unit)
     {
-        _unit = unit;
-        //_icon.sprite = unit.Sprite;
-        _label.text = unit.Name;
-        _waterPower.text = unit.WaterPowerLevel.ToString();
-        if (unit.Icon != null)
+        if (_units.Count == 0)
         {
-            _unitIcon = Instantiate(unit.Icon, transform);
+            _animator = GetComponent<Animator>();
+
+            //_icon.sprite = unit.Sprite;
+            _label.text = unit.Name;
+            _waterPower.text = unit.WaterPowerLevel.ToString();
+            if (unit.Icon != null)
+            {
+                _unitIcon = Instantiate(unit.Icon, transform);
+            }
         }
+
+        _units.Add(unit);
+        _unitsAmount++;
+        _unitsAmountDisplay.text = _unitsAmount.ToString();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -37,10 +57,10 @@ public class UnitView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         //mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
         //_unit.transform.position = mousePosition;
 
-        _unit.gameObject.SetActive(true);
-        _unit.Collider.enabled = false;
-        _unit.Rigidbody.isKinematic = true;
-        _unit.Rigidbody.useGravity = true;
+        _units[0].gameObject.SetActive(true);
+        _units[0].Collider.enabled = false;
+        _units[0].Rigidbody.isKinematic = true;
+        _units[0].Rigidbody.useGravity = true;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -60,7 +80,7 @@ public class UnitView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         {
             if (hitInfo.transform.TryGetComponent(out UnitsDragArea dragArea))
             {
-                _unit.transform.position = hitInfo.point;
+                _units[0].transform.position = hitInfo.point;
             }
         }
 
@@ -69,8 +89,46 @@ public class UnitView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        _unit.Collider.enabled = true;
-        _unit.Rigidbody.isKinematic = false;
+        _units[0].Collider.enabled = true;
+        _units[0].Rigidbody.isKinematic = false;
+        _unitsAmount--;
+        if (_unitsAmount == 0)
+        {
+            _units.Clear();
+            StartCoroutine(WaitForEndOfDisappear());
+            //gameObject.SetActive(false);
+        }
+        else
+        {
+            _units.RemoveAt(0);
+            StartCoroutine(WaitForEndOfAmountAnimation());
+            //_unitsAmountDisplay.text = _unitsAmount.ToString();
+        }
+    }
+
+    //public void Appear()
+    //{
+    //    StartCoroutine(WaitForEndOfAppear());
+    //}
+
+    private IEnumerator WaitForEndOfDisappear()
+    {
+        _animator.SetTrigger(_disappearAnimationTrigger);
+        yield return new WaitForSeconds(_appearDisappearDelay);
         gameObject.SetActive(false);
+    }
+
+    //private IEnumerator WaitForEndOfAppear()
+    //{
+    //    _animator.SetTrigger(_appearAnimationTrigger);
+    //    yield return new WaitForSeconds(_appearDisappearDelay);
+    //}
+
+    private IEnumerator WaitForEndOfAmountAnimation()
+    {
+        _animator.SetTrigger(_amountDisplayIncreaseAnimationTrigger);
+        yield return new WaitForSeconds(_changeAmountDelay);
+        _unitsAmountDisplay.text = _unitsAmount.ToString();
+        _animator.SetTrigger(_amountDisplayDecreaseAnimationTrigger);
     }
 }

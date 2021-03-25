@@ -97,7 +97,8 @@ public class FirefighterExtinguisher : FireExtinguisher
 
         /// Spawn unit hide effect
         ParticleSystem hideEffect = Instantiate(UnitHideEffect, unit.transform.position, Quaternion.identity);
-        unit.gameObject.SetActive(false);
+        //unit.gameObject.SetActive(false);
+        unit.Reset();
         yield return new WaitForSeconds(hideEffect.main.duration);
 
         Destroy(hideEffect.gameObject);

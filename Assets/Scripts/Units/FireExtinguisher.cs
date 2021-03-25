@@ -21,5 +21,9 @@ public abstract class FireExtinguisher : MonoBehaviour
     {
         bool isSuccessed = unit.WaterPowerLevel >= place.FireSource.DifficultyLevel;
         ExtinguishHappened?.Invoke(isSuccessed, unit, place);
+        //if (isSuccessed)
+        //{
+        //    UnitsPanel.TryEnableUnit(unit);
+        //}
     }
 }

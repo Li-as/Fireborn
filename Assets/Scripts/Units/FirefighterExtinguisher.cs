@@ -77,11 +77,11 @@ public class FirefighterExtinguisher : FireExtinguisher
             /// Delay for extinguish
             yield return new WaitForSeconds(ExtinguishFireEffectDelay);
 
-            /// Destroy water and fire effects
+            waterEffectMain.loop = false;
+            /// Destroy fire effect
             ParticleSystem fireExtinguishEndEffect = Instantiate(FireExtinguishEndEffect, pickedEffect.transform.position, Quaternion.identity);
             fireSourceEffects.Remove(pickedEffect);
             Destroy(pickedEffect.gameObject);
-            waterEffect.Stop();
             if (fireSourceEffects.Count == 0)
             {
                 /// Run UI animation

@@ -76,11 +76,11 @@ public class HelicopterExtinguisher : FireExtinguisher
             /// Delay for extinguish
             yield return new WaitForSeconds(ExtinguishFireEffectDelay);
 
+            waterEffectMain.loop = false;
             /// Destroy water and fire effects
             ParticleSystem fireExtinguishEndEffect = Instantiate(FireExtinguishEndEffect, pickedEffect.transform.position, Quaternion.identity);
             fireSourceEffects.Remove(pickedEffect);
             Destroy(pickedEffect.gameObject);
-            waterEffect.Stop();
             if (fireSourceEffects.Count == 0)
             {
                 /// Run UI animation

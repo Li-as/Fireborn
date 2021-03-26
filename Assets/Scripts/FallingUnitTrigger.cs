@@ -10,6 +10,8 @@ public class FallingUnitTrigger : MonoBehaviour
 
     private Unit _fallingUnit;
 
+    public PlaceOnFire PlaceUnderTrigger => _placeUnderTrigger;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent(out Unit unit))

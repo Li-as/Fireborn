@@ -38,9 +38,11 @@ public class AirplaneExtinguisher : FireExtinguisher
     private IEnumerator ExtinguishSuccess(float successDelay, Unit unit, PlaceOnFire place)
     {
         ParticleSystem waterEffect = Instantiate(WaterEffect, unit.WaterEffectSpawnPoint);
+        ParticleSystem.MainModule waterEffectMain = waterEffect.main;
 
         List<ParticleSystem> fireSourceEffects = place.FireSource.FireEffects;
         List<ParticleSystem> fireExtinguishEndEffects = new List<ParticleSystem>();
+
         while (unit.IsInRequiredPlace == true)
         {
             if (fireSourceEffects.Count > 0)
@@ -56,7 +58,8 @@ public class AirplaneExtinguisher : FireExtinguisher
             }
         }
 
-        Destroy(waterEffect.gameObject);
+        waterEffectMain.loop = false;
+
         foreach (ParticleSystem fireSourceEffect in fireSourceEffects)
         {
             fireExtinguishEndEffects.Add(Instantiate(FireExtinguishEndEffect, fireSourceEffect.transform.position, Quaternion.identity));
@@ -81,5 +84,6 @@ public class AirplaneExtinguisher : FireExtinguisher
         yield return new WaitForSeconds(hideEffect.main.duration);
 
         Destroy(hideEffect.gameObject);
+        Destroy(waterEffect.gameObject);
     }
 }

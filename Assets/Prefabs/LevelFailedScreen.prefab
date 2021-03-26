@@ -195,7 +195,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6718023324891303226}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 329147065527004503}
+        m_TargetAssemblyTypeName: LevelFailedScreen, Assembly-CSharp
+        m_MethodName: OnExitButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5778280187858470575
 GameObject:
   m_ObjectHideFlags: 0
@@ -601,7 +613,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 668448095433453363}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 329147065527004503}
+        m_TargetAssemblyTypeName: LevelFailedScreen, Assembly-CSharp
+        m_MethodName: OnRetryButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7570185098051955179
 GameObject:
   m_ObjectHideFlags: 0
@@ -677,6 +701,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _appearAnimationTrigger: Appear
+  _currentSceneName: LevelOne
 --- !u!1 &7972845115120031647
 GameObject:
   m_ObjectHideFlags: 0

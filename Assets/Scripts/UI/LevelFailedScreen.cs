@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Animator))]
 public class LevelFailedScreen : MonoBehaviour
 {
     [SerializeField] private string _appearAnimationTrigger;
+    [SerializeField] private string _currentSceneName;
 
     private Animator _animator;
 
@@ -26,5 +28,6 @@ public class LevelFailedScreen : MonoBehaviour
 
     public void OnRetryButtonClick()
     {
+        SceneManager.LoadScene(_currentSceneName);
     }
 }

@@ -25,6 +25,7 @@ public class UnitView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     private List<Unit> _units = new List<Unit>();
     private GameObject _unitIcon;
     private int _unitsAmount;
+    private PlaceOnFire _placeUnderUnit;
 
     public TMP_Text Label => _label;
 
@@ -74,13 +75,35 @@ public class UnitView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         mousePosition.z = _dragAreaDistanceFromCamera;
         mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
         //Vector3 direction = new Vector3(0, -1, 1).normalized;
-        Vector3 direction = new Vector3(0, -1, 10f / 6f).normalized;
+        Vector3 direction = new Vector3(0, -1, 3).normalized;
         Ray ray = new Ray(mousePosition, direction);
         if (Physics.Raycast(ray, out RaycastHit hitInfo, 1000))
         {
             if (hitInfo.transform.TryGetComponent(out UnitsDragArea dragArea))
             {
                 _units[0].transform.position = hitInfo.point;
+
+                Vector3 newDireciton = Vector3.down;
+                newDireciton.z = 0.1f;
+                ray = new Ray(hitInfo.point, newDireciton.normalized);
+                if (Physics.Raycast(ray, out hitInfo, 1000))
+                {
+                    if (hitInfo.transform.TryGetComponent(out FallingUnitTrigger fallingUnitTrigger))
+                    {
+                        if (_placeUnderUnit != null && _placeUnderUnit != fallingUnitTrigger.PlaceUnderTrigger)
+                        {
+                            _placeUnderUnit.TurnOffHighlight();
+                        }
+
+                        _placeUnderUnit = fallingUnitTrigger.PlaceUnderTrigger;
+                        _placeUnderUnit.TurnOnHighlight();
+                    }
+                    else if (_placeUnderUnit != null)
+                    {
+                        _placeUnderUnit.TurnOffHighlight();
+                        _placeUnderUnit = null;
+                    }
+                }
             }
         }
 

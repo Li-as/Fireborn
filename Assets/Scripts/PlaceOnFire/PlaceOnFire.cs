@@ -9,6 +9,8 @@ public abstract class PlaceOnFire : MonoBehaviour
     [SerializeField] private Transform _fireEnginePath;
     [SerializeField] private Transform _helicopterPath;
     [SerializeField] private Transform _airplanePath;
+    [SerializeField] private ParticleSystem[] _highlightEffects;
+    [SerializeField] private FireExtinguisher[] _extinguishers;
 
     public FireSource FireSource => _fireSource;
 
@@ -37,5 +39,24 @@ public abstract class PlaceOnFire : MonoBehaviour
         }
 
         return pathPoints;
+    }
+
+    public void TurnOnHighlight()
+    {
+        foreach (ParticleSystem highlight in _highlightEffects)
+        {
+            ParticleSystem.MainModule highlightMain = highlight.main;
+            highlightMain.loop = true;
+            highlight.Play();
+        }
+    }
+
+    public void TurnOffHighlight()
+    {
+        foreach (ParticleSystem highlight in _highlightEffects)
+        {
+            ParticleSystem.MainModule highlightMain = highlight.main;
+            highlightMain.loop = false;
+        }
     }
 }

@@ -112,6 +112,12 @@ public class UnitView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        if (_placeUnderUnit != null)
+        {
+            _placeUnderUnit.TurnOffHighlight();
+            _placeUnderUnit = null;
+        }
+
         _units[0].Collider.enabled = true;
         _units[0].Rigidbody.isKinematic = false;
         _unitsAmount--;

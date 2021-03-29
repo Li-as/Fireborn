@@ -80,9 +80,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaterPower: 110
-  _sprite: {fileID: 21300000, guid: e51d51d71c72e82418a15078d9218279, type: 3}
+  _sprite: {fileID: 21300000, guid: 62fec20e92f12f546942d00dc8b0fc2c, type: 3}
   _name: Airplane
   _icon: {fileID: 5979888461094718563, guid: 53c066f25518b06419eac9b30dc7d36b, type: 3}
+  _animator: {fileID: 0}
+  _idleAnimationTrigger: 
+  _runningAnimationTrigger: 
+  _firefightingAnimationTrigger: 
   _startPoint: {fileID: 0}
   _fireEffectSpawnPoint: {fileID: 2821011040239351770}
   _waterEffectSpawnPoint: {fileID: 3206824795263645739}

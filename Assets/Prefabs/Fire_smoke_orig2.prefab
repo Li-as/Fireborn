@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3224271911849427740}
   - component: {fileID: 3223558335754852796}
   m_Layer: 0
-  m_Name: Fire_smoke
+  m_Name: Fire_smoke_orig2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 3348708487780533260}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 8, y: 8, z: 4}
+  m_LocalScale: {x: 10, y: 10, z: 4}
   m_Children:
   - {fileID: 1338309656773224574}
   - {fileID: 3885800804839732276}
@@ -4874,7 +4874,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 1
-  prewarm: 1
+  prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
@@ -5111,7 +5111,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.035
+      scalar: 0.03
       minScalar: 0.1
       maxCurve:
         serializedVersion: 2
@@ -6132,7 +6132,7 @@ ParticleSystem:
         serializedVersion: 2
         key0: {r: 1, g: 0.16320229, b: 0, a: 1}
         key1: {r: 1, g: 0.5471423, b: 0, a: 1}
-        key2: {r: 1, g: 0.5471423, b: 0, a: 0}
+        key2: {r: 1, g: 0.5471423, b: 0, a: 1}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
@@ -6147,16 +6147,16 @@ ParticleSystem:
         ctime6: 0
         ctime7: 0
         atime0: 0
-        atime1: 16962
-        atime2: 65535
-        atime3: 49151
-        atime4: 55127
-        atime5: 55127
+        atime1: 8288
+        atime2: 16962
+        atime3: 65535
+        atime4: 0
+        atime5: 0
         atime6: 0
         atime7: 0
         m_Mode: 0
         m_NumColorKeys: 3
-        m_NumAlphaKeys: 3
+        m_NumAlphaKeys: 4
       minGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}

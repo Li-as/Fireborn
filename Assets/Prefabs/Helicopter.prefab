@@ -80,9 +80,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaterPower: 50
-  _sprite: {fileID: 21300000, guid: e51d51d71c72e82418a15078d9218279, type: 3}
+  _sprite: {fileID: 21300000, guid: eb997897d184d154488cffba3a825ef8, type: 3}
   _name: Helicopter
   _icon: {fileID: 297526812505491762, guid: 4c7939f5e5ec595409c2d26e19cc5762, type: 3}
+  _animator: {fileID: 0}
+  _idleAnimationTrigger: 
+  _runningAnimationTrigger: 
+  _firefightingAnimationTrigger: 
   _startPoint: {fileID: 0}
   _fireEffectSpawnPoint: {fileID: 5742326268678130161}
   _waterEffectSpawnPoint: {fileID: 3435867113664898783}

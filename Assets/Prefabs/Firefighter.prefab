@@ -761,7 +761,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaterPower: 4
-  _sprite: {fileID: 0}
+  _sprite: {fileID: 21300000, guid: abfae693e9627f443a5e0183414a5128, type: 3}
   _name: Firefighter
   _icon: {fileID: 557578016680318801, guid: f5c3471e99c8f9346b5ececa2cc36601, type: 3}
   _animator: {fileID: 4854720999025265224}

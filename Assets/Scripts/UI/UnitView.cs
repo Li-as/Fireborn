@@ -20,15 +20,23 @@ public class UnitView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     [SerializeField] private float _changeAmountDelay;
     [SerializeField] private string _amountDisplayIncreaseAnimationTrigger;
     [SerializeField] private string _amountDisplayDecreaseAnimationTrigger;
+    //[SerializeField] private Texture2D _cursorHand;
+    //[SerializeField] private Vector2 _cursorHandHotSpot;
+    //[SerializeField] private Texture2D _cursorHandTap;
+    //[SerializeField] private Vector2 _cursorHandTapHotSpot;
+    //[SerializeField] private Texture2D[] _disappearingCursorSteps;
+    //[SerializeField] private float _cursorDisappearTime;
 
     private Animator _animator;
     private List<Unit> _units = new List<Unit>();
     private GameObject _unitIcon;
     private int _unitsAmount;
     private PlaceOnFire _placeUnderUnit;
+    //private HandCursor _handCursor;
 
     public TMP_Text Label => _label;
 
+    //public void Init(Unit unit, HandCursor cursor)
     public void Init(Unit unit)
     {
         if (_units.Count == 0)
@@ -47,6 +55,8 @@ public class UnitView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         _units.Add(unit);
         _unitsAmount++;
         _unitsAmountDisplay.text = _unitsAmount.ToString();
+
+        //_handCursor = cursor;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -62,6 +72,18 @@ public class UnitView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         _units[0].Collider.enabled = false;
         _units[0].Rigidbody.isKinematic = true;
         _units[0].Rigidbody.useGravity = true;
+
+        //Vector3 cursorTargetPosition = Input.mousePosition;
+        //cursorTargetPosition.z = 5;
+        //cursorTargetPosition = Camera.main.ScreenToWorldPoint(cursorTargetPosition);
+        //_handCursor.transform.position = cursorTargetPosition;
+        //Color imageColor = _handCursor.Image.color;
+        //imageColor.a = 1;
+        //_handCursor.Image.color = imageColor;
+        //_handCursor.transform.rotation = Quaternion.Euler(0, 0, 50);
+
+        //Cursor.visible = true;
+        //Cursor.SetCursor(_cursorHandTap, _cursorHandTapHotSpot, CursorMode.Auto);
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -133,6 +155,9 @@ public class UnitView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
             StartCoroutine(WaitForEndOfAmountAnimation());
             //_unitsAmountDisplay.text = _unitsAmount.ToString();
         }
+
+        //Cursor.SetCursor(_cursorHand, _cursorHandHotSpot, CursorMode.Auto);
+        //StartCoroutine(WaitForEndOfCursorDisappear(_cursorDisappearTime));
     }
 
     //public void Appear()
@@ -146,6 +171,19 @@ public class UnitView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         yield return new WaitForSeconds(_appearDisappearDelay);
         gameObject.SetActive(false);
     }
+
+    //private IEnumerator WaitForEndOfCursorDisappear(float disappearTime)
+    //{
+    //    float changeTime = disappearTime / _disappearingCursorSteps.Length;
+
+    //    for (int i = 0; i < _disappearingCursorSteps.Length; i++)
+    //    {
+    //        Cursor.SetCursor(_disappearingCursorSteps[i], _cursorHandHotSpot, CursorMode.Auto);
+    //        yield return new WaitForSeconds(changeTime);
+    //    }
+
+    //    Cursor.visible = false;
+    //}
 
     //private IEnumerator WaitForEndOfAppear()
     //{

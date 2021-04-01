@@ -6,6 +6,7 @@ public class UnitsPanel : MonoBehaviour
 {
     [SerializeField] private Unit[] _units;
     [SerializeField] private UnitView _unitViewTemplate;
+    //[SerializeField] private HandCursor _handCursor;
 
     private List<UnitView> _unitViews = new List<UnitView>();
 
@@ -19,6 +20,7 @@ public class UnitsPanel : MonoBehaviour
             {
                 if (view.Label.text == unit.Name)
                 {
+                    //view.Init(unit, _handCursor);
                     view.Init(unit);
                     isAlreadyExist = true;
                 }
@@ -27,6 +29,7 @@ public class UnitsPanel : MonoBehaviour
             if (isAlreadyExist == false)
             {
                 UnitView unitView = Instantiate(_unitViewTemplate, transform);
+                //unitView.Init(unit, _handCursor);
                 unitView.Init(unit);
                 _unitViews.Add(unitView);
             }

@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class AirplaneExtinguisher : FireExtinguisher
 {
+    [SerializeField] private PlaceOnFire _bigForestDestroyed;
+    [SerializeField] private PlaceOnFire _bigForestExtinguished;
+    [SerializeField] private float _changePlaceDelay;
+
     public override void TryExtinguishPlace(Unit unit, PlaceOnFire place)
     {
         if (place.FireSource.DifficultyLevel > unit.WaterPowerLevel)
@@ -35,6 +39,58 @@ public class AirplaneExtinguisher : FireExtinguisher
         Destroy(deathEffect.gameObject);
     }
 
+    //private IEnumerator ExtinguishSuccess(float successDelay, Unit unit, PlaceOnFire place)
+    //{
+    //    ParticleSystem waterEffect = Instantiate(WaterEffect, unit.WaterEffectSpawnPoint);
+    //    ParticleSystem.MainModule waterEffectMain = waterEffect.main;
+
+    //    List<ParticleSystem> fireSourceEffects = place.FireSource.FireEffects;
+    //    List<ParticleSystem> fireExtinguishEndEffects = new List<ParticleSystem>();
+
+    //    while (unit.IsInRequiredPlace == true)
+    //    {
+    //        if (fireSourceEffects.Count > 0)
+    //        {
+    //            yield return new WaitForSeconds(ExtinguishFireEffectDelay);
+    //            fireExtinguishEndEffects.Add(Instantiate(FireExtinguishEndEffect, fireSourceEffects[0].transform.position, Quaternion.identity));
+    //            Destroy(fireSourceEffects[0].gameObject);
+    //            fireSourceEffects.RemoveAt(0);
+    //        }
+    //        else
+    //        {
+    //            yield return null;
+    //        }
+    //    }
+
+    //    waterEffectMain.loop = false;
+
+    //    foreach (ParticleSystem fireSourceEffect in fireSourceEffects)
+    //    {
+    //        fireExtinguishEndEffects.Add(Instantiate(FireExtinguishEndEffect, fireSourceEffect.transform.position, Quaternion.identity));
+    //        Destroy(fireSourceEffect.gameObject);
+    //    }
+
+    //    fireSourceEffects.Clear();
+    //    base.TryExtinguishPlace(unit, place);
+    //    yield return new WaitForSeconds(FireExtinguishEndEffect.main.duration);
+
+    //    foreach (ParticleSystem fireExtinguishEndEffect in fireExtinguishEndEffects)
+    //    {
+    //        Destroy(fireExtinguishEndEffect.gameObject);
+    //    }
+
+    //    fireExtinguishEndEffects.Clear();
+    //    yield return new WaitForSeconds(successDelay);
+
+    //    ParticleSystem hideEffect = Instantiate(UnitHideEffect, unit.transform.position, Quaternion.identity);
+    //    //unit.gameObject.SetActive(false);
+    //    unit.Reset();
+    //    yield return new WaitForSeconds(hideEffect.main.duration);
+
+    //    Destroy(hideEffect.gameObject);
+    //    Destroy(waterEffect.gameObject);
+    //}
+    
     private IEnumerator ExtinguishSuccess(float successDelay, Unit unit, PlaceOnFire place)
     {
         ParticleSystem waterEffect = Instantiate(WaterEffect, unit.WaterEffectSpawnPoint);
@@ -67,7 +123,6 @@ public class AirplaneExtinguisher : FireExtinguisher
         }
 
         fireSourceEffects.Clear();
-        base.TryExtinguishPlace(unit, place);
         yield return new WaitForSeconds(FireExtinguishEndEffect.main.duration);
 
         foreach (ParticleSystem fireExtinguishEndEffect in fireExtinguishEndEffects)
@@ -76,13 +131,21 @@ public class AirplaneExtinguisher : FireExtinguisher
         }
 
         fireExtinguishEndEffects.Clear();
-        yield return new WaitForSeconds(successDelay);
 
         ParticleSystem hideEffect = Instantiate(UnitHideEffect, unit.transform.position, Quaternion.identity);
-        //unit.gameObject.SetActive(false);
         unit.Reset();
-        yield return new WaitForSeconds(hideEffect.main.duration);
+        yield return new WaitForSeconds(successDelay);
 
+        base.TryExtinguishPlace(unit, place);
+        _bigForestDestroyed.Animator.SetTrigger(_bigForestDestroyed.DisappearAnimationTrigger);
+        yield return new WaitForSeconds(_changePlaceDelay);
+        _bigForestExtinguished.gameObject.SetActive(true);
+        _bigForestExtinguished.transform.localScale = Vector3.zero;
+        _bigForestExtinguished.Animator.SetTrigger(_bigForestExtinguished.AppearAnimationTrigger);
+        yield return new WaitForSeconds(_changePlaceDelay);
+        _bigForestExtinguished.Animator.SetTrigger(_bigForestExtinguished.IdleAnimationTrigger);
+
+        //_bigForestDestroyed.gameObject.SetActive(false);
         Destroy(hideEffect.gameObject);
         Destroy(waterEffect.gameObject);
     }

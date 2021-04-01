@@ -333,6 +333,22 @@ MonoBehaviour:
   _changeAmountDelay: 0.6
   _amountDisplayIncreaseAnimationTrigger: Increase
   _amountDisplayDecreaseAnimationTrigger: Decrease
+  _cursorHand: {fileID: 2800000, guid: 4304afc95e9ae3546aeb6bdf0fef3e2c, type: 3}
+  _cursorHandHotSpot: {x: 51, y: 42}
+  _cursorHandTap: {fileID: 2800000, guid: 331ab3cf598113644a02394b4c69980a, type: 3}
+  _cursorHandTapHotSpot: {x: 29, y: 115}
+  _disappearingCursorSteps:
+  - {fileID: 2800000, guid: 3f837ba568cb6b34dbe88016c4fab50c, type: 3}
+  - {fileID: 2800000, guid: 84296ae4b365c5e4a9217b91c273ce14, type: 3}
+  - {fileID: 2800000, guid: 5c737e64b52e3044e9848eed68d36d36, type: 3}
+  - {fileID: 2800000, guid: fa12d2c7a7c545245a499bcb0bae27f7, type: 3}
+  - {fileID: 2800000, guid: 69e66f73706185748aba673de490ca09, type: 3}
+  - {fileID: 2800000, guid: 9902b2afece988a4ab3b6723dab3a533, type: 3}
+  - {fileID: 2800000, guid: 3c2cc5f44e444554d841804baffc5740, type: 3}
+  - {fileID: 2800000, guid: 7644d8d1a50e5ab47898e5a1fae595cc, type: 3}
+  - {fileID: 2800000, guid: 452589947d4b6be4e83515586be366c1, type: 3}
+  - {fileID: 2800000, guid: 2a4cb87833eedb4408d97d2c18668af6, type: 3}
+  _cursorDisappearTime: 1
 --- !u!1 &5778054095544763084
 GameObject:
   m_ObjectHideFlags: 0

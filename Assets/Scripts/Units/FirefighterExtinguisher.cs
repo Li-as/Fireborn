@@ -38,6 +38,73 @@ public class FirefighterExtinguisher : FireExtinguisher
         Destroy(deathEffect.gameObject);
     }
 
+    //private IEnumerator ExtinguishSuccess(float successDelay, Unit unit, PlaceOnFire place)
+    //{
+    //    ParticleSystem waterEffect = Instantiate(WaterEffect, unit.WaterEffectSpawnPoint);
+    //    ParticleSystem.MainModule waterEffectMain = waterEffect.main;
+    //    Quaternion spawnPointRotation = waterEffect.transform.rotation;
+    //    spawnPointRotation.y = unit.transform.rotation.y;
+    //    waterEffect.transform.rotation = spawnPointRotation;
+    //    waterEffect.Stop();
+
+    //    /// Get all fire effects
+    //    List<ParticleSystem> fireSourceEffects = place.FireSource.FireEffects;
+
+    //    while (fireSourceEffects.Count > 0)
+    //    {
+    //        /// Pick random fire
+    //        int fireEffectNumber = Random.Range(0, fireSourceEffects.Count);
+    //        ParticleSystem pickedEffect = fireSourceEffects[fireEffectNumber];
+
+    //        /// Apply right rotation to water effect and play it
+    //        Vector3 targetPoint = pickedEffect.transform.position;
+    //        targetPoint.y = unit.transform.position.y;
+    //        Vector3 direction = (targetPoint - unit.transform.position).normalized;
+    //        Quaternion startRotation = unit.transform.rotation;
+    //        Quaternion targetRotation = Quaternion.LookRotation(direction);
+
+    //        float passedTime = 0;
+    //        while (passedTime < _unitRotationTime)
+    //        {
+    //            unit.transform.rotation = Quaternion.Lerp(startRotation, targetRotation, passedTime / _unitRotationTime);
+    //            passedTime += Time.deltaTime;
+    //            yield return null;
+    //        }
+    //        unit.transform.rotation = targetRotation;
+
+    //        waterEffectMain.loop = true;
+    //        waterEffect.Play();
+    //        /// Delay for extinguish
+    //        yield return new WaitForSeconds(ExtinguishFireEffectDelay);
+
+    //        waterEffectMain.loop = false;
+    //        /// Destroy fire effect
+    //        ParticleSystem fireExtinguishEndEffect = Instantiate(FireExtinguishEndEffect, pickedEffect.transform.position, Quaternion.identity);
+    //        fireSourceEffects.Remove(pickedEffect);
+    //        Destroy(pickedEffect.gameObject);
+    //        if (fireSourceEffects.Count == 0)
+    //        {
+    //            /// Run UI animation
+    //            base.TryExtinguishPlace(unit, place);
+    //            unit.Animator.SetTrigger(unit.IdleAnimationTrigger);
+    //        }
+    //        yield return new WaitForSeconds(FireExtinguishEndEffect.main.duration);
+
+    //        Destroy(fireExtinguishEndEffect.gameObject);
+    //    }
+
+    //    yield return new WaitForSeconds(successDelay);
+
+    //    /// Spawn unit hide effect
+    //    ParticleSystem hideEffect = Instantiate(UnitHideEffect, unit.transform.position, Quaternion.identity);
+    //    //unit.gameObject.SetActive(false);
+    //    unit.Reset();
+    //    yield return new WaitForSeconds(hideEffect.main.duration);
+
+    //    Destroy(hideEffect.gameObject);
+    //    Destroy(waterEffect.gameObject);
+    //}
+    
     private IEnumerator ExtinguishSuccess(float successDelay, Unit unit, PlaceOnFire place)
     {
         ParticleSystem waterEffect = Instantiate(WaterEffect, unit.WaterEffectSpawnPoint);
@@ -47,16 +114,13 @@ public class FirefighterExtinguisher : FireExtinguisher
         waterEffect.transform.rotation = spawnPointRotation;
         waterEffect.Stop();
 
-        /// Get all fire effects
         List<ParticleSystem> fireSourceEffects = place.FireSource.FireEffects;
 
         while (fireSourceEffects.Count > 0)
         {
-            /// Pick random fire
             int fireEffectNumber = Random.Range(0, fireSourceEffects.Count);
             ParticleSystem pickedEffect = fireSourceEffects[fireEffectNumber];
 
-            /// Apply right rotation to water effect and play it
             Vector3 targetPoint = pickedEffect.transform.position;
             targetPoint.y = unit.transform.position.y;
             Vector3 direction = (targetPoint - unit.transform.position).normalized;
@@ -74,18 +138,14 @@ public class FirefighterExtinguisher : FireExtinguisher
 
             waterEffectMain.loop = true;
             waterEffect.Play();
-            /// Delay for extinguish
             yield return new WaitForSeconds(ExtinguishFireEffectDelay);
 
             waterEffectMain.loop = false;
-            /// Destroy fire effect
             ParticleSystem fireExtinguishEndEffect = Instantiate(FireExtinguishEndEffect, pickedEffect.transform.position, Quaternion.identity);
             fireSourceEffects.Remove(pickedEffect);
             Destroy(pickedEffect.gameObject);
             if (fireSourceEffects.Count == 0)
             {
-                /// Run UI animation
-                base.TryExtinguishPlace(unit, place);
                 unit.Animator.SetTrigger(unit.IdleAnimationTrigger);
             }
             yield return new WaitForSeconds(FireExtinguishEndEffect.main.duration);
@@ -93,14 +153,20 @@ public class FirefighterExtinguisher : FireExtinguisher
             Destroy(fireExtinguishEndEffect.gameObject);
         }
 
+        ParticleSystem hideEffect = Instantiate(UnitHideEffect, unit.transform.position, Quaternion.identity);
+        unit.Reset();
         yield return new WaitForSeconds(successDelay);
 
-        /// Spawn unit hide effect
-        ParticleSystem hideEffect = Instantiate(UnitHideEffect, unit.transform.position, Quaternion.identity);
-        //unit.gameObject.SetActive(false);
-        unit.Reset();
-        yield return new WaitForSeconds(hideEffect.main.duration);
+        base.TryExtinguishPlace(unit, place);
+        place.Destroyed.Animator.SetTrigger(place.Destroyed.DisappearAnimationTrigger);
+        yield return new WaitForSeconds(ChangePlaceDelay);
+        place.Extinguished.gameObject.SetActive(true);
+        place.Extinguished.transform.localScale = Vector3.zero;
+        place.Extinguished.Animator.SetTrigger(place.Extinguished.AppearAnimationTrigger);
+        yield return new WaitForSeconds(ChangePlaceDelay);
+        place.Extinguished.Animator.SetTrigger(place.Extinguished.IdleAnimationTrigger);
 
+        place.Destroyed.gameObject.SetActive(false);
         Destroy(hideEffect.gameObject);
         Destroy(waterEffect.gameObject);
     }

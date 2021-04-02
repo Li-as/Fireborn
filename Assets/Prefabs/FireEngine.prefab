@@ -4981,7 +4981,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 30
-  _rotationSpeed: 125
+  _rotationSpeed: 150
   MaxDistanceFromTargetPosition: 0.1
 --- !u!1 &3614468174388037442
 GameObject:

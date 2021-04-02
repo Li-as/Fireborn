@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class AirplaneExtinguisher : FireExtinguisher
 {
-    [SerializeField] private PlaceOnFire _bigForestDestroyed;
-    [SerializeField] private PlaceOnFire _bigForestExtinguished;
-    [SerializeField] private float _changePlaceDelay;
-
     public override void TryExtinguishPlace(Unit unit, PlaceOnFire place)
     {
         if (place.FireSource.DifficultyLevel > unit.WaterPowerLevel)
@@ -137,15 +133,15 @@ public class AirplaneExtinguisher : FireExtinguisher
         yield return new WaitForSeconds(successDelay);
 
         base.TryExtinguishPlace(unit, place);
-        _bigForestDestroyed.Animator.SetTrigger(_bigForestDestroyed.DisappearAnimationTrigger);
-        yield return new WaitForSeconds(_changePlaceDelay);
-        _bigForestExtinguished.gameObject.SetActive(true);
-        _bigForestExtinguished.transform.localScale = Vector3.zero;
-        _bigForestExtinguished.Animator.SetTrigger(_bigForestExtinguished.AppearAnimationTrigger);
-        yield return new WaitForSeconds(_changePlaceDelay);
-        _bigForestExtinguished.Animator.SetTrigger(_bigForestExtinguished.IdleAnimationTrigger);
+        place.Destroyed.Animator.SetTrigger(place.Destroyed.DisappearAnimationTrigger);
+        yield return new WaitForSeconds(ChangePlaceDelay);
+        place.Extinguished.gameObject.SetActive(true);
+        place.Extinguished.transform.localScale = Vector3.zero;
+        place.Extinguished.Animator.SetTrigger(place.Extinguished.AppearAnimationTrigger);
+        yield return new WaitForSeconds(ChangePlaceDelay);
+        place.Extinguished.Animator.SetTrigger(place.Extinguished.IdleAnimationTrigger);
 
-        //_bigForestDestroyed.gameObject.SetActive(false);
+        place.Destroyed.gameObject.SetActive(false);
         Destroy(hideEffect.gameObject);
         Destroy(waterEffect.gameObject);
     }

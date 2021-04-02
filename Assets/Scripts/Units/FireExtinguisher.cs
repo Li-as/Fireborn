@@ -14,6 +14,7 @@ public abstract class FireExtinguisher : MonoBehaviour
     [SerializeField] protected float FailDelay;
     [SerializeField] protected float SuccessDelay;
     [SerializeField] protected float ExtinguishFireEffectDelay;
+    [SerializeField] protected float ChangePlaceDelay;
 
     public event UnityAction<bool, Unit, PlaceOnFire> ExtinguishHappened;
 

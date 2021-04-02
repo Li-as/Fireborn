@@ -11,6 +11,8 @@ public abstract class PlaceOnFire : MonoBehaviour
     [SerializeField] private Transform _helicopterPath;
     [SerializeField] private Transform _airplanePath;
     [SerializeField] private ParticleSystem[] _highlightEffects;
+    [SerializeField] private PlaceOnFire _destroyed;
+    [SerializeField] private PlaceOnFire _extinguished;
     [SerializeField] private string _disappearAnimationTrigger;
     [SerializeField] private string _appearAnimationTrigger;
     [SerializeField] private string _idleAnimationTrigger;
@@ -18,6 +20,8 @@ public abstract class PlaceOnFire : MonoBehaviour
     private Animator _animator;
 
     public FireSource FireSource => _fireSource;
+    public PlaceOnFire Destroyed => _destroyed;
+    public PlaceOnFire Extinguished => _extinguished;
     public Animator Animator => _animator;
     public string DisappearAnimationTrigger => _disappearAnimationTrigger;
     public string AppearAnimationTrigger => _appearAnimationTrigger;
